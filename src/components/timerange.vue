@@ -1,16 +1,17 @@
 <template>
   <div class="row">
     <el-date-picker v-model="beginTime" :value-format="beginValueFormat" :type="type" :disabled="disabled"
-                    placeholder="请选择日期" :picker-options="startDateOption"
+                    :placeholder="lang === 'en' ? 'Please select the date': '请选择日期'" :picker-options="startDateOption"
                     @change="selectStartDate"/>
-    <span>至</span>
+    <span>{{lang === 'en' ? 'to': '至'}}</span>
     <el-date-picker v-model="endTime" :value-format="endValueFormat" :type="type" :disabled="disabled"
-                    placeholder="请选择日期" :picker-options="endDateOption" @change="selectEndDate"/>
+                    :placeholder="lang === 'en' ? 'Please select the date': '请选择日期'" :picker-options="endDateOption" @change="selectEndDate"/>
   </div>
 </template>
 
 <script>
   import dayjs from 'dayjs';
+  import i18n from '../lang/index'
 
 
   export default {
@@ -45,7 +46,8 @@
         endTime: '',
         startDateOption: this.startOption,
         endDateOption: this.endOptions,
-        disabled: this.disabledSetting
+        disabled: this.disabledSetting,
+        lang: i18n.locale
       };
     },
     watch: {
@@ -105,6 +107,9 @@
     display: table-cell;
     vertical-align: middle;
     color: #606266;
+  }
+  span{
+    padding : 0 5px;
   }
   .el-date-editor.el-input.el-date-editor--date {
     width: 140px;
